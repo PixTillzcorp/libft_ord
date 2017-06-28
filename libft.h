@@ -92,7 +92,7 @@ char				*ft_dec_to_bin(unsigned int nbr);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strncpy(char *dest, char *src, size_t n);
 char				*ft_strstr(const char *big, const char *lil);
-char				*ft_dec_to_sci(double nbr, char type, char *pre);
+char				*ft_dec_to_sci(double nbr, char type, int pre);
 char				*ft_strjoin_free(char *s1, char *s2, char flag);
 char				*ft_chrjoin_free(char *s, const char c, int flag);
 char				*ft_strncat(char *dest, const char *src, size_t n);
