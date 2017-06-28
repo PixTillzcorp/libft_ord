@@ -45,6 +45,8 @@ PATH_IS = ft_is/
 
 PATH_MEM = ft_mem/
 
+PATH_PUT = ft_put/
+
 PATH_STR = ft_str/
 
 PATH_LST = ft_lst/
@@ -152,7 +154,7 @@ cleared:
 
 #This one build the lib
 
-$(NAME): $(SRCO_MEM) $(SRCO_STR) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR) $(SRCO_PUT)
+$(NAME): $(SRCO_MEM) $(SRCO_STR) $(SRCO_PUT) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR)
 	@ echo "\n\t$(GREEN)~~~~[°Creating the lib°]~~~~\n$(NORMAL)"
 	ar rc $(NAME) $^ && ranlib $(NAME)
 
@@ -167,7 +169,7 @@ open:
 #Cleaning obj files
 
 clean: cleared
-	rm -f $(SRCO_MEM) $(SRCO_STR) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR)
+	rm -f $(SRCO_MEM) $(SRCO_STR) $(SRCO_PUT) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR)
 
 #Cleaning obj files and the lib
 
