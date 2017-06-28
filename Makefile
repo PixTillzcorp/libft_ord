@@ -12,7 +12,7 @@
 
 #PHONY allow rules to be done even w/ files w/ the same name in the dir.
 
-.PHONY: clean, fclean, re
+.PHONY: clean, fclean, re, open, reset, all, cleared
 
 #~~~~~~~~~~~~~~~~COLORS~~~~~~~~~~~~~~
 
@@ -152,7 +152,7 @@ cleared:
 
 #This one build the lib
 
-$(NAME): $(SRCO_MEM) $(SRCO_STR) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR)
+$(NAME): $(SRCO_MEM) $(SRCO_STR) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR) $(SRCO_PUT)
 	@ echo "\n\t$(GREEN)~~~~[°Creating the lib°]~~~~\n$(NORMAL)"
 	ar rc $(NAME) $^ && ranlib $(NAME)
 
