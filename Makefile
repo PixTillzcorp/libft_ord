@@ -14,6 +14,23 @@
 
 .PHONY: clean, fclean, re
 
+#~~~~~~~~~~~~~~~~COLORS~~~~~~~~~~~~~~
+
+BLACK = \033[30m
+RED = \033[31m
+GREEN = \033[32m
+YELLOW = \033[33m
+BLUE = \033[34m
+PINK = \033[35m
+CYAN = \033[36m
+GREY = \033[37m
+
+NORMAL = \033[0m
+
+#target file which needs to be opened by the rule "open"
+
+TARGET = NONE
+
 #Name of the build (here a lib)
 
 NAME = libft.a
@@ -95,34 +112,52 @@ CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
+#Those ones display colored infos
+
+reset:
+	@ echo "\n\t$(GREY)~~~~[°Reseting the lib°]~~~~$(NORMAL)"
+
+cleared:
+	@ echo "\n\t$(RED)~~~~[°Deleting objs files°]~~~~\n$(NORMAL)"
+
 #Those rules creats .o from .c if the obj is older than the src
 
 %.o: $(PATH_IS)%.c
-	$(CC) $(CFLAGS) -c $^
+	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
+	@ $(CC) $(CFLAGS) -c $^
 
 %.o: $(PATH_MEM)%.c
-	$(CC) $(CFLAGS) -c $^
+	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
+	@ $(CC) $(CFLAGS) -c $^
 
 %.o: $(PATH_STR)%.c
-	$(CC) $(CFLAGS) -c $^
+	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
+	@ $(CC) $(CFLAGS) -c $^
 
 %.o: $(PATH_LST)%.c
-	$(CC) $(CFLAGS) -c $^
+	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
+	@ $(CC) $(CFLAGS) -c $^
 
 %.o: $(PATH_PUT)%.c
-	$(CC) $(CFLAGS) -c $^
+	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
+	@ $(CC) $(CFLAGS) -c $^
 
 %.o: $(PATH_CONV)%.c
-	$(CC) $(CFLAGS) -c $^
+	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
+	@ $(CC) $(CFLAGS) -c $^
 
 %.o: $(PATH_OTHR)%.c
-	$(CC) $(CFLAGS) -c $^
+	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
+	@ $(CC) $(CFLAGS) -c $^
 
 #This one build the lib
 
 $(NAME): $(SRCO_MEM) $(SRCO_STR) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR)
+	@ echo "\n\t$(GREEN)~~~~[°Creating the lib°]~~~~\n$(NORMAL)"
 	ar rc $(NAME) $^ && ranlib $(NAME)
 
+open:
+	open $(TARGET)
 # ---------------------------------------
 # 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #				  CLEANING
@@ -131,14 +166,15 @@ $(NAME): $(SRCO_MEM) $(SRCO_STR) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR
 
 #Cleaning obj files
 
-clean:
+clean: cleared
 	rm -f $(SRCO_MEM) $(SRCO_STR) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR)
 
 #Cleaning obj files and the lib
 
 fclean: clean
+	@ echo "\n\t$(RED)~~~~[°Deleting .a file°]~~~~\n$(NORMAL)"
 	rm -f $(NAME)
 
 #Reset the compil : "Cleaning to rebuild everything better"
 
-re: fclean all
+re: reset fclean all
