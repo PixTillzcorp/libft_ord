@@ -56,6 +56,7 @@ int					ft_isdigit(int c);
 int					ft_isprint(int c);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
+int					ft_is_wchar(wint_t c);
 int					ft_putwchar(wchar_t c);
 int					ft_putwstr(wint_t *str);
 int					ft_atoi(const char *str);

@@ -73,7 +73,7 @@ SRCO_STR =	ft_strlen.o ft_strdup.o ft_strcpy.o ft_strcat.o ft_strchr.o		\
 SRCC_STR = $(SRCO_STR:.o=.c)
 
 SRCO_IS =	ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o\
-			ft_is_wstring.o ft_is_white_space.o								\
+			ft_is_wstring.o ft_is_white_space.o	ft_is_wchar.o				\
 
 SRCC_IS = $(SRCO_IS:.o=.c)
 
