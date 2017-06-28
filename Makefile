@@ -97,7 +97,7 @@ SRCO_CONV =	ft_itoa.o ft_atoi.o ft_litoa.o ft_dbltoa.o ft_ulitoa.o			\
 
 SRCC_CONV = $(SRCO_CONV:.o=.c)
 
-SRCO_OTHR =	ft_charswap.o ft_pow.o ft_swap.o ft_wstrlen.o					\
+SRCO_OTHR =	ft_charswap.o ft_pow.o ft_swap.o ft_wstrlen.o ft_wcharlen.o		\
 
 SRCC_OTHR = $(SRCO_OTHR:.o=.c)
 

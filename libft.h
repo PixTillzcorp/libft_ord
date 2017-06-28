@@ -138,6 +138,7 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
 size_t				ft_strlen(const char *str);
+size_t				ft_wcharlen(wint_t c);
 size_t				ft_wstrlen(wint_t *str);
 size_t				ft_strlcat(char *dest, const char *src, size_t size);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
