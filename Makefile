@@ -80,6 +80,7 @@ SRCC_IS = $(SRCO_IS:.o=.c)
 SRCO_PUT =	ft_putstr.o ft_putnbr.o ft_putlnbr.o ft_putwstr.o ft_putendl.o	\
 			ft_putchar.o ft_putnstr.o ft_putwchar.o ft_putxchar.o			\
 			ft_putstr_fd.o ft_putnbr_fd.o ft_putendl_fd.o ft_putchar_fd.o	\
+			ft_ret_putchar.o												\
 
 SRCC_PUT = $(SRCO_PUT:.o=.c)
 
