@@ -69,5 +69,5 @@ int	ft_putwchar(wint_t c)
 		return (-1);
 	write(1, ret, i);
 	free(ret);
-	return (1);
+	return (i);
 }
