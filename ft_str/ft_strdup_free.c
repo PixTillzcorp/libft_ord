@@ -27,7 +27,7 @@ char		*ft_strdup_free(char *str, int f)
 		i++;
 	}
 	cpy[i] = '\0';
-	if (f)
+	if (f && str)
 		free(str);
 	return (cpy);
 }
