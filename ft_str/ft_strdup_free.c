@@ -12,7 +12,7 @@
 
 #include "../libft.h"
 
-char		*ft_strdup_free(const char *str, int free)
+char		*ft_strdup_free(char *str, int f)
 {
 	char	*cpy;
 	int		i;
@@ -21,7 +21,7 @@ char		*ft_strdup_free(const char *str, int free)
 	cpy = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (cpy == NULL)
 	{
-		if (free)
+		if (f)
 			free(str);
 		return (NULL);
 	}
@@ -31,7 +31,7 @@ char		*ft_strdup_free(const char *str, int free)
 		i++;
 	}
 	cpy[i] = '\0';
-	if (free)
+	if (f)
 		free(str);
 	return (cpy);
 }
