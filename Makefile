@@ -73,7 +73,7 @@ SRCO_STR =	ft_strlen.o ft_strdup.o ft_strcpy.o ft_strcat.o ft_strchr.o		\
 			ft_strlcat.o ft_toupper.o ft_tolower.o ft_strncpy.o ft_strrchr.o\
 			ft_strnstr.o ft_strncmp.o ft_striter.o ft_strmapi.o ft_strnequ.o\
 			ft_strjoin.o ft_strtrim.o ft_striteri.o ft_strsplit.o			\
-			ft_chrjoin_free.o ft_strjoin_free.o
+			ft_chrjoin_free.o ft_strjoin_free.o ft_strdup_free.o
 
 SRCC_STR =	ft_strlen.c ft_strdup.c ft_strcpy.c ft_strcat.c ft_strchr.c		\
 			ft_strstr.c ft_strcmp.c ft_strrev.c ft_strnew.c ft_strdel.c		\
@@ -81,7 +81,7 @@ SRCC_STR =	ft_strlen.c ft_strdup.c ft_strcpy.c ft_strcat.c ft_strchr.c		\
 			ft_strlcat.c ft_toupper.c ft_tolower.c ft_strncpy.c ft_strrchr.c\
 			ft_strnstr.c ft_strncmp.c ft_striter.c ft_strmapi.c ft_strnequ.c\
 			ft_strjoin.c ft_strtrim.c ft_striteri.c ft_strsplit.c			\
-			ft_chrjoin_free.c ft_strjoin_free.c
+			ft_chrjoin_free.c ft_strjoin_free.c ft_strdup_free.c
 
 SRCO_IS =	ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o\
 			ft_is_wstring.o ft_is_white_space.o	ft_is_wchar.o

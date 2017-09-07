@@ -88,6 +88,7 @@ char				**ft_strsplit(char const *s, char c);
 char				*ft_strcpy(char *dest, const char *src);
 char				*ft_strcat(char *dest, const char *src);
 char				*ft_strmap(char const *s, char (*f)(char));
+char				*ft_strdup_free(const char *str, int free);
 char				*ft_dec_to_base(unsigned int nbr, char *flag, int b, int p);
 char				*ft_dec_to_hex(unsigned int nbr, char type, int pre);
 char				*ft_dec_to_bin(unsigned int nbr);

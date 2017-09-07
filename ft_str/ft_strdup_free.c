@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wstrlen.c                                       :+:      :+:    :+:   */
+/*   ft_strdup_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heinfalt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/06 01:02:48 by heinfalt          #+#    #+#             */
-/*   Updated: 2017/09/06 01:02:49 by heinfalt         ###   ########.fr       */
+/*   Created: 2017/09/07 02:33:29 by heinfalt          #+#    #+#             */
+/*   Updated: 2017/09/07 02:33:30 by heinfalt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-size_t		ft_wstrlen(wint_t *str)
+char		*ft_strdup_free(const char *str, int free)
 {
-	size_t	i;
-	int		count;
+	char	*cpy;
+	int		i;
 
 	i = 0;
-	count = 0;
+	cpy = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (cpy == NULL)
+	{
+		if (free)
+			free(str);
+		return (NULL);
+	}
 	while (str[i])
-		count += ft_wcharlen(str[i++]);
-	return (count);
+	{
+		cpy[i] = str[i];
+		i++;
+	}
+	cpy[i] = '\0';
+	if (free)
+		free(str);
+	return (cpy);
 }
