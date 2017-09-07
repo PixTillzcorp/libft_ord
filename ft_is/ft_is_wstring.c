@@ -17,6 +17,8 @@ int	ft_is_wstring(wint_t *str)
 	int i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		if (str[i++] - 127 > 0)
