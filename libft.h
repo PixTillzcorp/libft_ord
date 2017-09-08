@@ -64,6 +64,7 @@ int					ft_atoi(const char *str);
 int					ft_putxchar(char c, int x);
 int					ft_is_wstring(wchar_t *str);
 int					ft_is_white_space(char const c);
+int					ft_ret_free(void *data, int ret);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strequ(char const *s1, char const *s2);
 int					ft_initmod(unsigned int nbr, unsigned int mod);
