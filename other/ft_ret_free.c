@@ -6,7 +6,7 @@
 /*   By: heinfalt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 02:05:14 by heinfalt          #+#    #+#             */
-/*   Updated: 2017/09/08 02:05:16 by heinfalt         ###   ########.fr       */
+/*   Updated: 2017/09/29 15:38:05 by heinfalt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		ft_ret_free(void *data, int ret)
 {
-	ft_memdel(&data);
+	if (data)
+		ft_memdel(&data);
 	return (ret);
 }
