@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../includes/libft.h"
 
 static	int		ft_dbl_to_int(double nbr)
 {

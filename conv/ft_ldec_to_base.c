@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../includes/libft.h"
 
 char					*ft_ldec_to_base(unsigned long long nbr,\
 						char *flag, long long base, int pre)

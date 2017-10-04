@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../includes/libft.h"
 
 wchar_t		*ft_strwdup(const wchar_t *str)
 {

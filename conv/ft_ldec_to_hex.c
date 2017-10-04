@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../includes/libft.h"
 
 char					*ft_ldec_to_hex(unsigned long long nbr,\
 						char type, int pre)

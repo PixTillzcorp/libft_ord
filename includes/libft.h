@@ -14,9 +14,12 @@
 # define LIBFT_H
 
 # include <stdlib.h>
+# include <stdarg.h>
 # include <unistd.h>
 # include <string.h>
 # include <wchar.h>
+
+# include "ft_printf.h"
 
 # define ABS(value) (value < 0) ? -value : value
 # define NEG(value) (value < 0) ? 1 : 0

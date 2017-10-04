@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../includes/libft.h"
 
 int					ft_initmod(unsigned int nbr, unsigned int mod)
 {

@@ -16,6 +16,7 @@
 
 #~~~~~~~~~~~~~~~~COLORS~~~~~~~~~~~~~~
 
+FONT_NOIR = \033[40m
 BLACK = \033[30m
 RED = \033[31m
 GREEN = \033[32m
@@ -27,9 +28,11 @@ GREY = \033[37m
 
 NORMAL = \033[0m
 
-#target file which needs to be opened by the rule "open"
+#Includes
 
-TARGET = NONE
+INC = includes/
+
+HEADERS = libft.h ft_printf.h
 
 #Name of the build (here a lib)
 
@@ -55,6 +58,8 @@ PATH_CONV = conv/
 
 PATH_OTHR = other/
 
+PATH_PRINTF = ft_printf/
+
 #Path of the location of every .o files
 
 OBJDIR = objfiles
@@ -63,9 +68,6 @@ OBJDIR = objfiles
 
 SRCO_MEM =	ft_bzero.o ft_memcpy.o ft_memchr.o ft_memcmp.o ft_memset.o		\
 			ft_memdel.o ft_memccpy.o ft_memmove.o ft_memalloc.o
-
-SRCC_MEM =	ft_bzero.c ft_memcpy.c ft_memchr.c ft_memcmp.c ft_memset.c		\
-			ft_memdel.c ft_memccpy.c ft_memmove.c ft_memalloc.c
 
 SRCO_STR =	ft_strlen.o ft_strdup.o ft_strcpy.o ft_strcat.o ft_strchr.o		\
 			ft_strstr.o ft_strcmp.o ft_strrev.o ft_strnew.o ft_strdel.o		\
@@ -76,36 +78,16 @@ SRCO_STR =	ft_strlen.o ft_strdup.o ft_strcpy.o ft_strcat.o ft_strchr.o		\
 			ft_chrjoin_free.o ft_strjoin_free.o ft_strdup_free.o			\
 			ft_strchange.o
 
-SRCC_STR =	ft_strlen.c ft_strdup.c ft_strcpy.c ft_strcat.c ft_strchr.c		\
-			ft_strstr.c ft_strcmp.c ft_strrev.c ft_strnew.c ft_strdel.c		\
-			ft_strclr.c ft_strmap.c ft_strequ.c ft_strsub.c ft_strncat.c	\
-			ft_strlcat.c ft_toupper.c ft_tolower.c ft_strncpy.c ft_strrchr.c\
-			ft_strnstr.c ft_strncmp.c ft_striter.c ft_strmapi.c ft_strnequ.c\
-			ft_strjoin.c ft_strtrim.c ft_striteri.c ft_strsplit.c			\
-			ft_chrjoin_free.c ft_strjoin_free.c ft_strdup_free.c			\
-			ft_strchange.c
-
 SRCO_IS =	ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o\
 			ft_is_wstring.o ft_is_white_space.o	ft_is_wchar.o
-
-SRCC_IS =	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c\
-			ft_is_wstring.c ft_is_white_space.c	ft_is_wchar.c
 
 SRCO_PUT =	ft_putstr.o ft_putnbr.o ft_putlnbr.o ft_putwstr.o ft_putendl.o	\
 			ft_putchar.o ft_putnstr.o ft_putwchar.o ft_putxchar.o			\
 			ft_putstr_fd.o ft_putnbr_fd.o ft_putendl_fd.o ft_putchar_fd.o	\
 			ft_ret_putchar.o
 
-SRCC_PUT =	ft_putstr.c ft_putnbr.c ft_putlnbr.c ft_putwstr.c ft_putendl.c	\
-			ft_putchar.c ft_putnstr.c ft_putwchar.c ft_putxchar.c			\
-			ft_putstr_fd.c ft_putnbr_fd.c ft_putendl_fd.c ft_putchar_fd.c	\
-			ft_ret_putchar.c
-
 SRCO_LST =	ft_lstnew.o ft_lstdel.o ft_lstadd.o ft_lstmap.o ft_lstiter.o	\
 			ft_lstappend.o ft_lstdelone.o
-
-SRCC_LST =	ft_lstnew.c ft_lstdel.c ft_lstadd.c ft_lstmap.c ft_lstiter.c	\
-			ft_lstappend.c ft_lstdelone.c
 
 SRCO_CONV =	ft_itoa.o ft_atoi.o ft_litoa.o ft_dbltoa.o ft_ulitoa.o			\
 			ft_initmod.o ft_initlmod.o ft_bin_to_dec.o ft_dec_to_bin.o		\
@@ -113,17 +95,11 @@ SRCO_CONV =	ft_itoa.o ft_atoi.o ft_litoa.o ft_dbltoa.o ft_ulitoa.o			\
 			ft_dec_to_base.o ft_ldec_to_bin.o ft_ldec_to_hex.o				\
 			ft_ldec_to_base.o
 
-SRCC_CONV = ft_itoa.c ft_atoi.c ft_litoa.c ft_dbltoa.c ft_ulitoa.c			\
-			ft_initmod.c ft_initlmod.c ft_bin_to_dec.c ft_dec_to_bin.c		\
-			ft_dec_to_hex.c ft_dec_to_sci.c ft_hex_to_dec.c ft_ptr_to_hex.c	\
-			ft_dec_to_base.c ft_ldec_to_bin.c ft_ldec_to_hex.c				\
-			ft_ldec_to_base.c
-
 SRCO_OTHR =	ft_charswap.o ft_pow.o ft_swap.o ft_wstrlen.o ft_wcharlen.o		\
 			ft_ret_free.o ft_nbrlen.o ft_retstr_free.o
 
-SRCC_OTHR = ft_charswap.c ft_pow.c ft_swap.c ft_wstrlen.c ft_wcharlen.c		\
-			ft_ret_free.c ft_nbrlen.c ft_retstr_free.c
+SRCO_PRINTF =	check_wsc.o flag.o flag_flag.o ft_printf.o lenmod.o			\
+				operation.o operation_2.o other.o
 
 #Compiler flags
 
@@ -141,64 +117,66 @@ all: $(NAME)
 
 #Those ones display colored infos
 
-reset:
-	@ echo "\n\t$(GREY)~~~~[°Reseting the lib°]~~~~$(NORMAL)"
+reset_init:
+	@ echo "$(BLUE)$(FONT_NOIR)Reseting the library }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$(NORMAL)"
+
+reset_cmpl:
+	@ echo "$(BLUE)$(FONT_NOIR)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{ Reset Complete[$(GREEN)\xe2\x9c\x94$(BLUE)]$(NORMAL)"
 
 cleared:
-	@ echo "\n\t$(RED)~~~~[°Deleting objs files°]~~~~\n$(NORMAL)"
+	@ echo "$(RED)$(FONT_NOIR).o files destruction\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
 
-#Those rules creats .o from .c if the obj is older than the src
+full_clean:
+	@ echo "$(RED)$(FONT_NOIR)Full clean$(NORMAL)"
+	@ echo "$(RED)$(FONT_NOIR).a file destruction\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
+
+#Those rules create .o from .c if the obj is older than the src
 
 $(OBJDIR)/%.o: $(PATH_STR)%.c
-	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
 	@ mkdir -p $(OBJDIR)
 	@ $(CC) $(CFLAGS) -c $^
 	@ mv ./$(notdir $@) ./$(OBJDIR)/
 
 $(OBJDIR)/%.o: $(PATH_LST)%.c
-	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
 	@ mkdir -p $(OBJDIR)
 	@ $(CC) $(CFLAGS) -c $^
 	@ mv ./$(notdir $@) ./$(OBJDIR)/
 
 $(OBJDIR)/%.o: $(PATH_PUT)%.c
-	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
 	@ mkdir -p $(OBJDIR)
 	@ $(CC) $(CFLAGS) -c $^
 	@ mv ./$(notdir $@) ./$(OBJDIR)/
 
 $(OBJDIR)/%.o: $(PATH_IS)%.c
-	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
 	@ mkdir -p $(OBJDIR)
 	@ $(CC) $(CFLAGS) -c $^
 	@ mv ./$(notdir $@) ./$(OBJDIR)/
 
 $(OBJDIR)/%.o: $(PATH_MEM)%.c
-	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
 	@ mkdir -p $(OBJDIR)
 	@ $(CC) $(CFLAGS) -c $^
 	@ mv ./$(notdir $@) ./$(OBJDIR)/
 
 $(OBJDIR)/%.o: $(PATH_CONV)%.c
-	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
 	@ mkdir -p $(OBJDIR)
 	@ $(CC) $(CFLAGS) -c $^
 	@ mv ./$(notdir $@) ./$(OBJDIR)/
 
 $(OBJDIR)/%.o: $(PATH_OTHR)%.c
-	@ echo "$(YELLOW)Creating ~~~> $^$(NORMAL)"
+	@ mkdir -p $(OBJDIR)
+	@ $(CC) $(CFLAGS) -c $^
+	@ mv ./$(notdir $@) ./$(OBJDIR)/
+
+$(OBJDIR)/%.o: $(PATH_PRINTF)%.c
 	@ mkdir -p $(OBJDIR)
 	@ $(CC) $(CFLAGS) -c $^
 	@ mv ./$(notdir $@) ./$(OBJDIR)/
 
 #This one build the lib
 
-$(NAME): $(addprefix $(OBJDIR)/, $(SRCO_MEM) $(SRCO_STR) $(SRCO_PUT) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR))
-	@ echo "\n\t$(GREEN)~~~~[°Creating the lib°]~~~~\n$(NORMAL)"
-	ar rc $(NAME) $^ && ranlib $(NAME)
-
-open:
-	open $(TARGET)
+$(NAME): $(addprefix $(OBJDIR)/, $(SRCO_MEM) $(SRCO_STR) $(SRCO_PUT) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR) $(SRCO_PRINTF))
+	@ echo "$(PINK)$(FONT_NOIR)Compilation of the library\t[$(GREEN)\xe2\x9c\x94$(PINK)]$(NORMAL)"
+	@ ar rc $(NAME) $(addprefix $(INC), $(HEADERS)) $^ && ranlib $(NAME)
 
 # ---------------------------------------
 # 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -209,14 +187,13 @@ open:
 #Cleaning obj files
 
 clean: cleared
-	rm -f $(addprefix $(OBJDIR)/, $(SRCO_MEM) $(SRCO_STR) $(SRCO_PUT) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR))
+	@ rm -f $(addprefix $(OBJDIR)/, $(SRCO_MEM) $(SRCO_STR) $(SRCO_PUT) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR) $(SRCO_PRINTF))
 
 #Cleaning obj files and the lib
 
-fclean: clean
-	@ echo "\n\t$(RED)~~~~[°Deleting .a file°]~~~~\n$(NORMAL)"
-	rm -f $(NAME)
+fclean: full_clean clean
+	@ rm -f $(NAME)
 
 #Reset the compil : "Cleaning to rebuild everything better"
 
-re: reset fclean all
+re: reset_init fclean all reset_cmpl
