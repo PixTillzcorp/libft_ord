@@ -176,7 +176,7 @@ $(OBJDIR)/%.o: $(PATH_PRINTF)%.c
 
 $(NAME): $(addprefix $(OBJDIR)/, $(SRCO_MEM) $(SRCO_STR) $(SRCO_PUT) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR) $(SRCO_PRINTF))
 	@ echo "$(PINK)$(FONT_NOIR)Compilation of the library\t[$(GREEN)\xe2\x9c\x94$(PINK)]$(NORMAL)"
-	@ ar rc $(NAME) $(addprefix $(INC), $(HEADERS)) $^ && ranlib $(NAME)
+	@ ar rc $(NAME) $^ && ranlib $(NAME)
 
 # ---------------------------------------
 # 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
