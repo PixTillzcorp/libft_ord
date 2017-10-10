@@ -124,11 +124,10 @@ reset_cmpl:
 	@ echo "$(BLUE)$(FONT_NOIR)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{ Reset Complete[$(GREEN)\xe2\x9c\x94$(BLUE)]$(NORMAL)"
 
 cleared:
-	@ echo "$(RED)$(FONT_NOIR).o files destruction\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
+	@ echo "$(YELLOW)$(FONT_NOIR)libft : $(RED).o files destruction\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
 
 full_clean:
-	@ echo "$(RED)$(FONT_NOIR)Full clean$(NORMAL)"
-	@ echo "$(RED)$(FONT_NOIR).a file destruction\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
+	@ echo "$(YELLOW)$(FONT_NOIR)libft : $(RED).a file destruction\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
 
 #Those rules create .o from .c if the obj is older than the src
 
@@ -175,7 +174,7 @@ $(OBJDIR)/%.o: $(PATH_PRINTF)%.c
 #This one build the lib
 
 $(NAME): $(addprefix $(OBJDIR)/, $(SRCO_MEM) $(SRCO_STR) $(SRCO_PUT) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR) $(SRCO_PRINTF))
-	@ echo "$(PINK)$(FONT_NOIR)Compilation of the library\t[$(GREEN)\xe2\x9c\x94$(PINK)]$(NORMAL)"
+	@ echo "$(PINK)$(FONT_NOIR)Compilation of the library\t\t[$(GREEN)\xe2\x9c\x94$(PINK)]$(NORMAL)"
 	@ ar rc $(NAME) $^ && ranlib $(NAME)
 
 # ---------------------------------------
