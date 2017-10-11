@@ -128,6 +128,7 @@ wchar_t				*ft_strwdup(const wchar_t *str);
 void				ft_swap(int *a, int *b);
 void				ft_putendl(char const *s);
 void				ft_putstr(char const *s);
+void				ft_putstr_clrd(char *str, char *color);
 void				*ft_memalloc(size_t size);
 void				ft_putlnbr(long long int n);
 void				ft_putnbr_fd(int n, int fd);
