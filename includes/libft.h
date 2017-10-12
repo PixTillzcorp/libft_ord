@@ -39,7 +39,7 @@ typedef	struct		s_itoa
 	int				negativ;
 }					t_itoa;
 
-typedef struct		s_wordi
+typedef	struct		s_wordi
 {
 	int				i;
 	int				word;
