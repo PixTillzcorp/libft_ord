@@ -20,6 +20,7 @@
 # include <wchar.h>
 
 # include "ft_printf.h"
+# include "get_next_line.h"
 
 # define ABS(value) (value < 0) ? -value : value
 # define NEG(value) (value < 0) ? 1 : 0
@@ -52,6 +53,7 @@ typedef	struct		s_dblbbl
 	size_t			j;
 }					t_dblbbl;
 
+int					ft_abs(int nbr);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 int					ft_isascii(int c);
@@ -130,6 +132,7 @@ void				ft_putendl(char const *s);
 void				ft_putstr(char const *s);
 void				ft_putstr_clrd(char *str, char *color);
 void				*ft_memalloc(size_t size);
+int					ft_lstlen(t_list *list);
 void				ft_putlnbr(long long int n);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_bzero(void *s, size_t n);
@@ -146,6 +149,7 @@ void				*ft_memchr(const void *s, int c, size_t n);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 void				*ft_memcpy(void *dest, const void *src, size_t n);
 void				*ft_memmove(void *dest, const void *src, size_t n);
+void				ft_lst_push_back(t_list **lst, t_list *elem);
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
