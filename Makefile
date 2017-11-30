@@ -73,7 +73,7 @@ SRCO_PUT =	ft_putstr.o ft_putnbr.o ft_putlnbr.o ft_putwstr.o ft_putendl.o	\
 			ft_ret_putchar.o ft_putstr_free.o ft_putstr_clrd.o
 
 SRCO_LST =	ft_lstnew.o ft_lstdel.o ft_lstadd.o ft_lstmap.o ft_lstiter.o	\
-			ft_lstappend.o ft_lstdelone.o
+			ft_lstappend.o ft_lstdelone.o ft_lst_push_back.o
 
 SRCO_CONV =	ft_itoa.o ft_atoi.o ft_litoa.o ft_dbltoa.o ft_ulitoa.o			\
 			ft_initmod.o ft_initlmod.o ft_bin_to_dec.o ft_dec_to_bin.o		\
@@ -82,7 +82,8 @@ SRCO_CONV =	ft_itoa.o ft_atoi.o ft_litoa.o ft_dbltoa.o ft_ulitoa.o			\
 			ft_ldec_to_base.o
 
 SRCO_OTHR =	ft_charswap.o ft_pow.o ft_swap.o ft_wstrlen.o ft_wcharlen.o		\
-			ft_ret_free.o ft_nbrlen.o ft_retstr_free.o ft_swap_chr.o
+			ft_ret_free.o ft_nbrlen.o ft_retstr_free.o ft_swap_chr.o		\
+			get_next_line.o
 
 SRCO_PRINTF =	check_wsc.o flag.o flag_flag.o ft_printf.o lenmod.o			\
 				operation.o operation_2.o other.o

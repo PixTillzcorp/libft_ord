@@ -12,19 +12,7 @@
 
 #include "../includes/libft.h"
 
-char			*ft_strjoin_free(char *s1, char *s2, char flag)
-{
-	char		*out;
-
-	out = ft_strjoin(s1, s2);
-	if (flag == 'l' || flag == 'b')
-		free(s1);
-	if (flag == 'r' || flag == 'b')
-		free(s2);
-	return (out);
-}
-
-int				fill_buffer(int fd, char **line, char **stock)
+static int		fill_buffer(int fd, char **line, char **stock)
 {
 	char		*buff;
 	char		*chr;
@@ -53,7 +41,7 @@ int				fill_buffer(int fd, char **line, char **stock)
 	return (ft_strlen(*line) == 0 ? 0 : 1);
 }
 
-int				extract_stock(int fd, char **line, char **stock)
+static int		extract_stock(int fd, char **line, char **stock)
 {
 	char		*chr;
 	char		*temp;
