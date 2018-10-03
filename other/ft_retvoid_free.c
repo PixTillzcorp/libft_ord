@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_push_back.c                                 :+:      :+:    :+:   */
+/*   ft_retvoid_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heinfalt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/27 11:45:36 by heinfalt          #+#    #+#             */
-/*   Updated: 2016/11/27 11:45:44 by heinfalt         ###   ########.fr       */
+/*   Created: 2018/03/08 16:39:30 by heinfalt          #+#    #+#             */
+/*   Updated: 2018/03/08 16:39:31 by heinfalt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	ft_lst_push_back(t_list **lst, t_list *elem)
+void	*ft_retvoid_free(void *data, void *ret)
 {
-	t_list	*tmp;
-
-	if (!lst)
-		return ;
-	if (!(*lst))
-		*lst = elem;
-	else
-	{
-		tmp = *lst;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = elem;
-	}
+	if (data)
+		ft_memdel(&data);
+	return (ret);
 }

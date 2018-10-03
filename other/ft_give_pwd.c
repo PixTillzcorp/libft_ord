@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_push_back.c                                 :+:      :+:    :+:   */
+/*   ft_give_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heinfalt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/27 11:45:36 by heinfalt          #+#    #+#             */
-/*   Updated: 2016/11/27 11:45:44 by heinfalt         ###   ########.fr       */
+/*   Created: 2018/03/28 16:58:19 by heinfalt          #+#    #+#             */
+/*   Updated: 2018/03/28 16:58:20 by heinfalt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	ft_lst_push_back(t_list **lst, t_list *elem)
+char			*ft_give_pwd(void)
 {
-	t_list	*tmp;
+	char		*buff;
 
-	if (!lst)
-		return ;
-	if (!(*lst))
-		*lst = elem;
-	else
-	{
-		tmp = *lst;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = elem;
-	}
+	if (!(buff = (char *)ft_memalloc(sizeof(char) * 200)))
+		return (NULL);
+	getcwd(buff, 200);
+	return (buff);
 }

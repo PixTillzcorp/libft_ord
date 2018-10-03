@@ -19,9 +19,6 @@
 # include <string.h>
 # include <wchar.h>
 
-# include "ft_printf.h"
-# include "get_next_line.h"
-
 # define ABS(value) (value < 0) ? -value : value
 # define NEG(value) (value < 0) ? 1 : 0
 
@@ -52,6 +49,11 @@ typedef	struct		s_dblbbl
 	size_t			i;
 	size_t			j;
 }					t_dblbbl;
+
+# include "ft_printf.h"
+# include "get_next_line.h"
+# include "commandline.h"
+# include "ft_bin.h"
 
 int					ft_abs(int nbr);
 int					ft_tolower(int c);
@@ -132,7 +134,8 @@ void				ft_putendl(char const *s);
 void				ft_putstr(char const *s);
 void				ft_putstr_clrd(char *str, char *color);
 void				*ft_memalloc(size_t size);
-int					ft_lstlen(t_list *list);
+int					ft_lstlen(t_list **alst);
+void				ft_putfile(char *path);
 void				ft_putlnbr(long long int n);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_bzero(void *s, size_t n);
@@ -157,7 +160,22 @@ void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
 size_t				ft_strlen(const char *str);
 size_t				ft_wcharlen(wint_t c);
 size_t				ft_wstrlen(wint_t *str);
+char				*ft_give_pwd(void);
+void				ft_lstfree(t_list **alst);
+char				*ft_lst_to_str(t_list **alst);
+void				ft_lstinsert(t_list **alst, t_list *new, int n);
+void				ft_lstdel_n(t_list **alst, int n);
+void				ft_lstdel_f(t_list **alst);
+void				ft_free_tab(char **tabl);
+int					ft_ret_freetab(char **tabl, int ret);
 size_t				ft_strlcat(char *dest, const char *src, size_t size);
+void				ft_env(t_list **adr_env);
+void				ft_env_give(t_list **adr_env, char *var, char *val);
+char				ft_data_type(mode_t type);
+char				*ft_env_val(t_list **adr_env, char *env_var);
+void				*ft_retvoid_free(void *data, void *ret);
+char				*ft_newpath(char *p, char *d);
+t_list				*ft_envclone(char **environ);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
 

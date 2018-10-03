@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_push_back.c                                 :+:      :+:    :+:   */
+/*   ft_newpath.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heinfalt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/27 11:45:36 by heinfalt          #+#    #+#             */
-/*   Updated: 2016/11/27 11:45:44 by heinfalt         ###   ########.fr       */
+/*   Created: 2018/03/08 17:24:11 by heinfalt          #+#    #+#             */
+/*   Updated: 2018/03/08 17:24:13 by heinfalt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	ft_lst_push_back(t_list **lst, t_list *elem)
+char		*ft_newpath(char *p, char *d)
 {
-	t_list	*tmp;
+	char	*ret;
+	int		i;
+	int		j;
 
-	if (!lst)
-		return ;
-	if (!(*lst))
-		*lst = elem;
-	else
-	{
-		tmp = *lst;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = elem;
-	}
+	i = 0;
+	j = 0;
+	if (!(ret = (char *)malloc(sizeof(char) * (ft_strlen(p) +\
+	ft_strlen(d) + 2))))
+		return (NULL);
+	while (p[i])
+		ret[j++] = p[i++];
+	ret[j++] = '/';
+	i = 0;
+	while (d[i])
+		ret[j++] = d[i++];
+	ret[j] = '\0';
+	return (ret);
 }

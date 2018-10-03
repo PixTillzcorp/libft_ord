@@ -32,7 +32,7 @@ NORMAL = \033[0m
 
 INC = includes/
 
-HEADERS = libft.h ft_printf.h
+HEADERS = libft.h ft_printf.h commandline.h get_next_line.h ft_bin.h
 
 #Name of the build (here a lib)
 
@@ -44,7 +44,7 @@ CC = gcc
 
 #Path of the location of every .c files
 
-VPATH = ft_is:ft_mem:ft_put:ft_str:ft_lst:conv:other:ft_printf
+VPATH = ft_is:ft_mem:ft_put:ft_str:ft_lst:conv:other:ft_printf:ft_env:ft_input:ft_bin
 
 #Path of the location of every .o files
 
@@ -70,23 +70,46 @@ SRCO_IS =	ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o\
 SRCO_PUT =	ft_putstr.o ft_putnbr.o ft_putlnbr.o ft_putwstr.o ft_putendl.o	\
 			ft_putchar.o ft_putnstr.o ft_putwchar.o ft_putxchar.o			\
 			ft_putstr_fd.o ft_putnbr_fd.o ft_putendl_fd.o ft_putchar_fd.o	\
-			ft_ret_putchar.o ft_putstr_free.o ft_putstr_clrd.o
+			ft_ret_putchar.o ft_putstr_free.o ft_putstr_clrd.o ft_putfile.o
 
 SRCO_LST =	ft_lstnew.o ft_lstdel.o ft_lstadd.o ft_lstmap.o ft_lstiter.o	\
-			ft_lstappend.o ft_lstdelone.o ft_lst_push_back.o
+			ft_lstappend.o ft_lstdelone.o ft_lst_push_back.o ft_lstlen.o	\
+			ft_lstdel_f.o ft_lstdel_n.o ft_lstfree.o ft_lstinsert.o
 
 SRCO_CONV =	ft_itoa.o ft_atoi.o ft_litoa.o ft_dbltoa.o ft_ulitoa.o			\
 			ft_initmod.o ft_initlmod.o ft_bin_to_dec.o ft_dec_to_bin.o		\
 			ft_dec_to_hex.o ft_dec_to_sci.o ft_hex_to_dec.o ft_ptr_to_hex.o	\
 			ft_dec_to_base.o ft_ldec_to_bin.o ft_ldec_to_hex.o				\
-			ft_ldec_to_base.o
+			ft_ldec_to_base.o ft_lst_to_str.o
 
 SRCO_OTHR =	ft_charswap.o ft_pow.o ft_swap.o ft_wstrlen.o ft_wcharlen.o		\
 			ft_ret_free.o ft_nbrlen.o ft_retstr_free.o ft_swap_chr.o		\
-			get_next_line.o
+			get_next_line.o ft_retvoid_free.o ft_data_type.o ft_newpath.o	\
+			ft_give_pwd.o ft_free_tab.o ft_ret_freetab.o
 
 SRCO_PRINTF =	check_wsc.o flag.o flag_flag.o ft_printf.o lenmod.o			\
 				operation.o operation_2.o other.o
+
+SRCO_INPUT =	ft_input.o cursor.o insert_delete.o term.o
+
+SRCO_BIN =	ft_bin_addflag.o ft_bin_decoct.o ft_bin_incoct.o ft_bin_intoct.o\
+			ft_bin_rplcoct.o ft_bin_shownbr.o ft_bin_showoct.o				\
+			ft_bin_valoct.o
+
+SRCO_ENV = ft_env.o ft_envclone.o ft_env_val.o ft_env_give.o
+
+SRCO = $(addprefix $(OBJDIR)/,	$(SRCO_MEM)\
+								$(SRCO_STR)\
+								$(SRCO_PUT)\
+								$(SRCO_LST)\
+								$(SRCO_IS)\
+								$(SRCO_CONV)\
+								$(SRCO_OTHR)\
+								$(SRCO_INPUT)\
+								$(SRCO_BIN)\
+								$(SRCO_PRINTF)\
+								$(SRCO_ENV))
+
 
 #Compiler flags
 
@@ -105,18 +128,22 @@ all: $(NAME)
 #Those ones display colored infos
 
 reset_init:
-	@ echo "$(BLUE)$(FONT_NOIR)Reseting the library }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$(NORMAL)"
+	@ echo "$(BLUE)$(FONT_NOIR)Reseting the library\
+	 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$(NORMAL)"
 
 reset_cmpl:
-	@ echo "$(BLUE)$(FONT_NOIR)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{ Reset Complete[$(GREEN)\xe2\x9c\x94$(BLUE)]$(NORMAL)"
+	@ echo "$(BLUE)$(FONT_NOIR)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{\
+	 Reset Complete [$(GREEN)\xe2\x9c\x94$(BLUE)]$(NORMAL)"
 
 cleared:
-	@ echo "$(YELLOW)$(FONT_NOIR)libft : $(RED).o files destruction\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
+	@ echo "$(YELLOW)$(FONT_NOIR)libft : $(RED).o files\
+	 destruction\t\t\t\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
 
 full_clean:
-	@ echo "$(YELLOW)$(FONT_NOIR)libft : $(RED).a file destruction\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
+	@ echo "$(YELLOW)$(FONT_NOIR)libft : $(RED).a file\
+	 destruction\t\t\t\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
 
-#Those rules create .o from .c if the obj is older than the src
+#Those rules create .o from .c if the obj is older than the src or doesnt exists
 
 $(OBJDIR)/%.o: %.c
 	@ mkdir -p $(OBJDIR)
@@ -125,8 +152,8 @@ $(OBJDIR)/%.o: %.c
 	
 #This one build the lib
 
-$(NAME): $(addprefix $(OBJDIR)/, $(SRCO_MEM) $(SRCO_STR) $(SRCO_PUT) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR) $(SRCO_PRINTF))
-	@ echo "$(PINK)$(FONT_NOIR)Compilation of the library\t\t[$(GREEN)\xe2\x9c\x94$(PINK)]$(NORMAL)"
+$(NAME): $(SRCO)
+	@ echo "$(PINK)$(FONT_NOIR)Compilation of the library\t\t\t\t\t[$(GREEN)\xe2\x9c\x94$(PINK)]$(NORMAL)"
 	@ ar rc $(NAME) $^ && ranlib $(NAME)
 
 # ---------------------------------------
@@ -135,10 +162,11 @@ $(NAME): $(addprefix $(OBJDIR)/, $(SRCO_MEM) $(SRCO_STR) $(SRCO_PUT) $(SRCO_LST)
 # 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ---------------------------------------
 
+
 #Cleaning obj files
 
 clean: cleared
-	@ rm -f $(addprefix $(OBJDIR)/, $(SRCO_MEM) $(SRCO_STR) $(SRCO_PUT) $(SRCO_LST) $(SRCO_IS) $(SRCO_CONV) $(SRCO_OTHR) $(SRCO_PRINTF))
+	@ rm -f $(SRCO)
 
 #Cleaning obj files and the lib
 

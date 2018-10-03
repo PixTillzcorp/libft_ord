@@ -5,84 +5,77 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: heinfalt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/09 12:42:50 by heinfalt          #+#    #+#             */
-/*   Updated: 2016/11/09 12:42:51 by heinfalt         ###   ########.fr       */
+/*   Created: 2018/03/08 15:40:09 by heinfalt          #+#    #+#             */
+/*   Updated: 2018/03/08 15:40:12 by heinfalt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-static int	ft_nbrword(char const *s, char c)
+static int	ft_nbrwords(char const *s, char c)
 {
-	t_wordi inbr;
+	int		none_c;
+	size_t	ret;
+	size_t	i;
 
-	inbr.i = 0;
-	inbr.word = 0;
-	if (s == NULL)
-		return (0);
-	while (s[inbr.i])
+	none_c = 0;
+	ret = 0;
+	i = 0;
+	while (s[i])
 	{
-		while (s[inbr.i] == c && s[inbr.i])
-			inbr.i++;
-		if (ft_isprint(s[inbr.i]))
+		if (s[i] != c)
 		{
-			inbr.word++;
-			while (s[inbr.i] != c && s[inbr.i])
-				inbr.i++;
+			if (!none_c)
+				ret++;
+			none_c = 1;
 		}
+		else
+			none_c = 0;
+		i++;
 	}
-	return (inbr.word);
+	return (ret);
 }
 
-static int	ft_lenword(char const *s, char c, t_wordi index)
+static char	*ft_putintab(char const *s, char **tab, char c)
 {
-	int		len;
+	size_t	word_begin;
+	size_t	word_end;
+	char	*word;
 
-	len = 0;
-	while (s[index.i] != c && s[index.i])
-	{
-		len++;
-		index.i++;
-	}
-	return (len);
-}
-
-static char	**ft_putintab(char const *s, char **tab, char c, t_wordi *index)
-{
-	int		j;
-
-	j = 0;
-	while (s[index->i] != c && s[index->i])
-		tab[index->word][j++] = s[index->i++];
-	tab[index->word++][j] = '\0';
-	return (tab);
+	word_begin = 0;
+	word_end = 0;
+	while (s[word_begin] == c)
+		word_begin++;
+	word_end = word_begin;
+	while (s[word_end] && s[word_end] != c)
+		word_end++;
+	word = ft_strsub(s, word_begin, word_end - word_begin);
+	*tab = word;
+	return ((char *)(s + word_end));
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
-	t_wordi index;
-	char	**tab;
+	size_t	n_word;
+	char	**ret;
+	char	*cpy;
+	size_t	i;
 
-	if (!s)
-		return (NULL);
-	index.i = 0;
-	index.word = 0;
-	index.lenw = ft_lenword(s, c, index) + 1;
-	tab = (char **)malloc(sizeof(char *) * (ft_nbrword(s, c) + 1));
-	if (tab == NULL)
-		return (NULL);
-	while (s[index.i])
+	ret = NULL;
+	i = 0;
+	if (s)
 	{
-		if (ft_isprint(s[index.i]) && s[index.i] != c)
+		cpy = (char *)s;
+		n_word = ft_nbrwords(s, c);
+		ret = (char **)ft_memalloc((n_word + 1) * sizeof(char *));
+		if (!ret)
+			return (NULL);
+		while (i < n_word)
 		{
-			tab[index.word] = (char *)malloc(sizeof(char) * index.lenw);
-			tab = ft_putintab(s, tab, c, &index);
-			while (ft_isprint(s[index.i]) && s[index.i] && s[index.i] != c)
-				index.i++;
+			cpy = ft_putintab(cpy, ret + i, c);
+			i++;
 		}
-		while (s[index.i] == c)
-			index.i++;
+		ret[n_word] = 0;
 	}
-	tab[index.word] = NULL;
-	return (tab);
+	return (ret);
 }

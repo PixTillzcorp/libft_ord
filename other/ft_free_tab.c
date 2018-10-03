@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_push_back.c                                 :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heinfalt <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/27 11:45:36 by heinfalt          #+#    #+#             */
-/*   Updated: 2016/11/27 11:45:44 by heinfalt         ###   ########.fr       */
+/*   Created: 2018/03/28 16:57:59 by heinfalt          #+#    #+#             */
+/*   Updated: 2018/03/28 16:58:01 by heinfalt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	ft_lst_push_back(t_list **lst, t_list *elem)
+void			ft_free_tab(char **tabl)
 {
-	t_list	*tmp;
+	int			i;
 
-	if (!lst)
-		return ;
-	if (!(*lst))
-		*lst = elem;
-	else
+	i = 0;
+	if (tabl[i])
 	{
-		tmp = *lst;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = elem;
+		while (tabl[i])
+			ft_memdel((void **)&tabl[i++]);
+		ft_memdel((void **)&tabl[i]);
+		free(tabl);
+		tabl = NULL;
 	}
 }
