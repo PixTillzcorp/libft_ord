@@ -1,4 +1,4 @@
-#include "../includes/commandline.h"
+#include "../includes/ft_input.h"
 # include <termios.h>
 # include <term.h>
 # include <sys/ioctl.h>
@@ -53,21 +53,6 @@ void			ft_lstdel_n(t_list **alst, int n)
 		n--;
 	}
 	prev->next = head->next;
-	if (head->content)
-		ft_memdel((void **)&head->content);
-	free(head);
-}
-
-void			ft_lstdel_f(t_list **alst)
-{
-	t_list		*head;
-
-	if (!alst || !(head = *alst))
-		return ;
-	if (head->next)
-		*alst = (*alst)->next;
-	else
-		*alst = NULL;
 	if (head->content)
 		ft_memdel((void **)&head->content);
 	free(head);

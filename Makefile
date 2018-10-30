@@ -14,6 +14,20 @@
 
 .PHONY: clean, fclean, re, open, reset, all, cleared
 
+# ********************************* DISPLAY ********************************** #
+
+SRC_NBR = $(words $(SRCO))
+
+PRCENT = $(shell echo \($(DONE) \* 100\) \/ $(SRC_NBR) | bc)
+
+REST = $(shell echo \($(DONE) \* 100\) \% $(SRC_NBR) | bc)
+
+PRGRSS = $(shell echo $(PRCENT) \/ 2 | bc)
+
+DONE = 0
+
+# **************************************************************************** #
+
 #~~~~~~~~~~~~~~~~COLORS~~~~~~~~~~~~~~
 
 FONT_NOIR = \033[40m
@@ -25,7 +39,6 @@ BLUE = \033[34m
 PINK = \033[35m
 CYAN = \033[36m
 GREY = \033[37m
-
 NORMAL = \033[0m
 
 #Includes
@@ -44,7 +57,17 @@ CC = gcc
 
 #Path of the location of every .c files
 
-VPATH = ft_is:ft_mem:ft_put:ft_str:ft_lst:conv:other:ft_printf:ft_env:ft_input:ft_bin
+VPATH = ft_is:		\
+		ft_mem:		\
+		ft_put:		\
+		ft_str:		\
+		ft_lst:		\
+		conv:		\
+		other:		\
+		ft_printf:	\
+		ft_env:		\
+		ft_input:	\
+		ft_bin
 
 #Path of the location of every .o files
 
@@ -62,7 +85,8 @@ SRCO_STR =	ft_strlen.o ft_strdup.o ft_strcpy.o ft_strcat.o ft_strchr.o		\
 			ft_strnstr.o ft_strncmp.o ft_striter.o ft_strmapi.o ft_strnequ.o\
 			ft_strjoin.o ft_strtrim.o ft_striteri.o ft_strsplit.o			\
 			ft_chrjoin_free.o ft_strjoin_free.o ft_strdup_free.o			\
-			ft_strchange.o ft_strchain.o
+			ft_strchange.o ft_strchain.o ft_strstart.o ft_strclr_split.o	\
+			ft_strnchr.o ft_strrmv.o
 
 SRCO_IS =	ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o\
 			ft_is_wstring.o ft_is_white_space.o	ft_is_wchar.o
@@ -74,18 +98,22 @@ SRCO_PUT =	ft_putstr.o ft_putnbr.o ft_putlnbr.o ft_putwstr.o ft_putendl.o	\
 
 SRCO_LST =	ft_lstnew.o ft_lstdel.o ft_lstadd.o ft_lstmap.o ft_lstiter.o	\
 			ft_lstappend.o ft_lstdelone.o ft_lst_push_back.o ft_lstlen.o	\
-			ft_lstdel_f.o ft_lstdel_n.o ft_lstfree.o ft_lstinsert.o
+			ft_lstdel_f.o ft_lstdel_n.o ft_lstfree.o ft_lstinsert.o			\
+			ft_lstcpy.o ft_lstjoin.o ft_lst_strsplit.o ft_lstdel_x.o		\
+			ft_lstdel_str.o ft_lstvnsh.o ft_lstsnipe.o
 
 SRCO_CONV =	ft_itoa.o ft_atoi.o ft_litoa.o ft_dbltoa.o ft_ulitoa.o			\
 			ft_initmod.o ft_initlmod.o ft_bin_to_dec.o ft_dec_to_bin.o		\
 			ft_dec_to_hex.o ft_dec_to_sci.o ft_hex_to_dec.o ft_ptr_to_hex.o	\
 			ft_dec_to_base.o ft_ldec_to_bin.o ft_ldec_to_hex.o				\
-			ft_ldec_to_base.o ft_lst_to_str.o
+			ft_ldec_to_base.o ft_lst_to_str.o ft_char_to_str.o				\
+			ft_lst_to_tab.o ft_lst_to_strcat.o
 
 SRCO_OTHR =	ft_charswap.o ft_pow.o ft_swap.o ft_wstrlen.o ft_wcharlen.o		\
 			ft_ret_free.o ft_nbrlen.o ft_retstr_free.o ft_swap_chr.o		\
 			get_next_line.o ft_retvoid_free.o ft_data_type.o ft_newpath.o	\
-			ft_give_pwd.o ft_free_tab.o ft_ret_freetab.o
+			ft_give_pwd.o ft_free_tab.o ft_ret_freetab.o ft_unbrlen.o		\
+			ft_check_dir.o ft_check_file.o ft_file_get.o
 
 SRCO_PRINTF =	check_wsc.o flag.o flag_flag.o ft_printf.o lenmod.o			\
 				operation.o operation_2.o other.o
@@ -94,9 +122,9 @@ SRCO_INPUT =	ft_input.o cursor.o insert_delete.o term.o
 
 SRCO_BIN =	ft_bin_addflag.o ft_bin_decoct.o ft_bin_incoct.o ft_bin_intoct.o\
 			ft_bin_rplcoct.o ft_bin_shownbr.o ft_bin_showoct.o				\
-			ft_bin_valoct.o
+			ft_bin_valoct.o ft_bin_chkflag.o ft_bin_incnbr.o
 
-SRCO_ENV = ft_env.o ft_envclone.o ft_env_val.o ft_env_give.o
+SRCO_ENV =	ft_env.o ft_envclone.o ft_env_val.o ft_env_give.o
 
 SRCO = $(addprefix $(OBJDIR)/,	$(SRCO_MEM)\
 								$(SRCO_STR)\
@@ -110,6 +138,7 @@ SRCO = $(addprefix $(OBJDIR)/,	$(SRCO_MEM)\
 								$(SRCO_PRINTF)\
 								$(SRCO_ENV))
 
+SRCC = $(SRCO:.o=.c)
 
 #Compiler flags
 
@@ -146,6 +175,12 @@ full_clean:
 #Those rules create .o from .c if the obj is older than the src or doesnt exists
 
 $(OBJDIR)/%.o: %.c
+	@ $(eval DONE = $(shell echo $(DONE) + 1 | bc ))
+	@ echo "\r \b\c"
+	@ echo "$(PINK)[ $(NORMAL)\c"
+	@ for i in {0..$(PRGRSS)} ; do echo "#\c" ; done
+	@ for i in {0..$(shell echo 50 - $(PRGRSS) | bc )} ; do echo " \c" ; done
+	@ echo "$(PINK)] {$(NORMAL)$(PRCENT).$(REST)$(PINK)} $(NORMAL)\c"
 	@ mkdir -p $(OBJDIR)
 	@ $(CC) $(CFLAGS) -c $^
 	@ mv ./$(notdir $@) ./$(OBJDIR)/
@@ -153,7 +188,7 @@ $(OBJDIR)/%.o: %.c
 #This one build the lib
 
 $(NAME): $(SRCO)
-	@ echo "$(PINK)$(FONT_NOIR)Compilation of the library\t\t\t\t\t[$(GREEN)\xe2\x9c\x94$(PINK)]$(NORMAL)"
+	@ echo "$(PINK)$(FONT_NOIR)[$(GREEN)\xe2\x9c\x94$(PINK)]$(NORMAL)"
 	@ ar rc $(NAME) $^ && ranlib $(NAME)
 
 # ---------------------------------------

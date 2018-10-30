@@ -14,6 +14,8 @@ unsigned int	ft_bin_addflag(unsigned int nbr, unsigned short oct, unsigned short
 	move = move >> ((sizeof(int) * 8) - 1);
 	if (!move)
 		move++;
+	else
+		return (0);
 	tmp = tmp | (move << pos);
 	return (ft_bin_rplcoct(nbr, tmp, oct));
 }

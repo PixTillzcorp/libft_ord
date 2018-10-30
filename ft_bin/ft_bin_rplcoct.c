@@ -6,14 +6,11 @@ unsigned int		ft_bin_rplcoct(unsigned int nbr, unsigned int newoct, unsigned sho
 
 	flag = 0;
 	if (oct > 3 || newoct > 255)
+	{
+		ft_printf("oct = {%u} | new oct = {%u}\n", oct, newoct);
+		ft_bin_shownbr(newoct);
 		exit(1);
-	if (oct == 0)
-		flag = ~(OCT_1);
-	else if (oct == 1)
-		flag = ~(OCT_2);
-	else if (oct == 2)
-		flag = ~(OCT_3);
-	else if (oct == 3)
-		flag = ~(OCT_4);
+	}
+	flag = ~(OCT(oct));
 	return (((nbr & flag) ^ (newoct << (oct * 8))));
 }
