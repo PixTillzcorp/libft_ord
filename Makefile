@@ -22,9 +22,13 @@ PRCENT = $(shell echo \($(DONE) \* 100\) \/ $(SRC_NBR) | bc)
 
 REST = $(shell echo \($(DONE) \* 100\) \% $(SRC_NBR) | bc)
 
-PRGRSS = $(shell echo $(PRCENT) \/ 2 | bc)
+PRGRSS = $(shell echo \($(PRCENT) \/ 2\) + 1 | bc)
 
 DONE = 0
+
+BAR = $(shell echo "\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#" | cut -c 1-$(PRGRSS))
+
+EMPTY = $(shell echo "                                                  " | cut -c $(PRGRSS)-50)
 
 # **************************************************************************** #
 
@@ -176,11 +180,7 @@ full_clean:
 
 $(OBJDIR)/%.o: %.c
 	@ $(eval DONE = $(shell echo $(DONE) + 1 | bc ))
-	@ echo "\r \b\c"
-	@ echo "$(PINK)[ $(NORMAL)\c"
-	@ for i in {0..$(PRGRSS)} ; do echo "#\c" ; done
-	@ for i in {0..$(shell echo 50 - $(PRGRSS) | bc )} ; do echo " \c" ; done
-	@ echo "$(PINK)] {$(NORMAL)$(PRCENT).$(REST)$(PINK)} $(NORMAL)\c"
+	@ echo "\r \b$(PINK)[$(NORMAL)$(BAR)$(EMPTY)$(PINK)] {$(NORMAL)$(PRCENT).$(REST)$(PINK)} $(NORMAL)\t\c"
 	@ mkdir -p $(OBJDIR)
 	@ $(CC) $(CFLAGS) -c $^
 	@ mv ./$(notdir $@) ./$(OBJDIR)/
