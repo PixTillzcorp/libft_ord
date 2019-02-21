@@ -14,10 +14,9 @@ typedef struct			s_curs
 	int					ws_col;
 	int					ws_row;
 	int					back;
-	int					term;
 }						t_curs;
 
-char					*ft_input(char *prompt, t_curs *cursor);
+char					*ft_input(char *prompt, int secured);
 void					ft_arrow_exec(int arrow, t_curs *cursor);
 t_curs					*ft_init_cursor(char *prompt);
 void					ft_del_key(t_list **alst, t_curs *cursor);
@@ -29,5 +28,6 @@ void					ft_clear_screen(void);
 void					ft_putnlst(t_list **alst, int n);
 void					ft_delscreen(t_list **alst, t_curs *cursor);
 void					ft_cursor_term(int len, t_curs *cursor);
+void					ft_update(t_list **alst, t_curs *cursor, char *prompt, size_t length);
 
 #endif

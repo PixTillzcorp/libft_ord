@@ -49,8 +49,10 @@ unsigned int	ft_hex_to_dec(const char *str, const char conv)
 	{
 		if (hex_nbr(str[i], conv))
 		{
-			nbr += ft_power(16, len - 1) * (ft_isalpha(str[i]) ? str[i] -\
-			(conv == 'x' ? 87 : 55) : str[i] - 48);
+			if (!ft_isalpha(str[i]))
+				nbr += ft_pow(16, len - 1) * (str[i] - 48);
+			else
+				nbr += ft_pow(16, len - 1) * (str[i] - (conv == 'x' ? 87 : 55));
 			len--;
 			i++;
 		}

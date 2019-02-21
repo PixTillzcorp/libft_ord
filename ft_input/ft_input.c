@@ -30,7 +30,7 @@ static int		ft_pasteboard(t_list **alst, t_curs *cursor, char *str)
 			ft_lstappend(alst, ft_lstnew((str + i), sizeof(char)));
 		else
 			ft_lstinsert(alst, ft_lstnew((str + i), sizeof(char)), ft_curs_pos(cursor));
-		ft_putchar(str[i++]);
+		i++;
 		if (cursor->col == cursor->ws_col - (!cursor->row ? cursor->prompt : 0))
 		{
 			cursor->col = 1;
@@ -56,7 +56,6 @@ static int		ft_key(t_list **alst, t_curs *cursor, char *keys)
 			ft_lstappend(alst, ft_lstnew(keys, ft_strlen(keys)));
 		else
 			ft_lstinsert(alst, ft_lstnew(keys, ft_strlen(keys)), ft_curs_pos(cursor));
-		ft_putchar(keys[0]);
 		if (cursor->col == cursor->ws_col - (!cursor->row ? cursor->prompt : 0))
 		{
 			cursor->col = 1;
@@ -73,48 +72,79 @@ static int		ft_key(t_list **alst, t_curs *cursor, char *keys)
 	return (0);
 }
 
-char			*ft_input(char *prompt, t_curs *cursor)
+char			*ft_read_canon(char *prompt, t_curs *cursor, int secured)
 {
 	t_list		*line;
+	size_t		length;
 	char		*buff;
 	char		*ret;
 
 	line = NULL;
-	buff = NULL;
-	cursor->col = 0;
-	cursor->row = 0;
-	cursor->back = 0;
-	ft_putstrs(prompt);
-	while (1) // add a variable ending
+	length = 0;
+	while (1)
 	{
+		if (line)
+			length = ft_lstlen(&line);
 		if (cursor->back < 0)
 			tputs(tgetstr("im", NULL), 0, ft_putchar_stdin);		/*Insert mode*/
 		else
 			tputs(tgetstr("ei", NULL), 0, ft_putchar_stdin);		/*Exit insert*/
-		if (!(buff = (char *)ft_memalloc(sizeof(char) * 4)))
+		if (!(buff = (char *)ft_memalloc(sizeof(char) * (3 + 1))))
 			return (NULL);
 		if (read(0, buff, 3) == -1)
 			return (NULL);
 		if (ft_key(&line, cursor, buff))
 		{
 			ft_memdel((void **)&buff);
+			if (line && !secured)
+				ft_update(&line, cursor, prompt, length);
 			break;
 		}
+		if (!secured)
+			ft_update(&line, cursor, prompt, length);
 	}
 	tputs(tgetstr("ei", NULL), 0, ft_putchar_stdin);				/*Exit insert (security)*/
 	if ((ret = ft_lst_to_str(&line)))
-	{
-		if (line)
-			ft_cursor_term((int)ft_strlen(ret), cursor);
 		return (ret);
-	}
-	else
-		ft_cursor_term(0, cursor);
-	ft_putstr(tgoto(tgetstr("cm", NULL), 0, cursor->term));
 	return (NULL);
 }
 
-/*int				main(...)					*/
+char		*ft_input(char *prompt, int secured)
+{
+	t_curs		*cursor;
+	t_term		*save;
+	char		*ret;
+
+	if (!(save = ft_init_term()))
+		return (NULL);
+	if (!(cursor = ft_init_cursor(prompt)))
+		return (NULL);
+	if (secured)
+	{
+		ft_putstr("password ->");
+		tputs(tgetstr("vi", NULL), 0, ft_putchar_stdin);
+	}
+	else
+		ft_putstr(prompt);
+	ft_putchar(' ');
+	ret = ft_read_canon(prompt, cursor, secured);
+	tputs(tgetstr("ve", NULL), 0, ft_putchar_stdin);
+	ft_reset_term(save);
+	return (ret);
+}
+
+
+// int			main(void)       NEW
+// {
+// 	char	*ret;
+
+// 	ret = "";
+// 	while (!ret || ft_strcmp(ret, "exit"))
+// 		ret = ft_input("hippolyte->");
+// 	return (0);
+// }
+
+/*int				main(...)    OLD			*/
 /*{												*/
 /*	t_curs		*cursor;						*/
 /*	t_term		*save;							*/

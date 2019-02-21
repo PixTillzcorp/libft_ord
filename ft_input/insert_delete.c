@@ -4,24 +4,24 @@
 # include <sys/ioctl.h>
 # include <signal.h>
 
-void			ft_delscreen(t_list **alst, t_curs *cursor)
-{
-	int			colmn;
-	int			row;
+// void			ft_delscreen(t_list **alst, t_curs *cursor)
+// {
+// 	int			colmn;
+// 	int			row;
 
-	row = cursor->row + cursor->term;
-	colmn = cursor->col + (cursor->row ? 0 : cursor->prompt);
-	tputs(tgetstr("ce", NULL), 0, ft_putchar_stdin);
-	while ((cursor->col + (ABS(cursor->back))) > cursor->ws_col)
-	{
-		ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
-		ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
-		tputs(tgetstr("cd", NULL), 0, ft_putchar_stdin);
-		ft_putstr(tgoto(tgetstr("cm", NULL), colmn, row));
-	}
-	ft_putnlst(alst, ft_curs_pos(cursor));
-	ft_putstr(tgoto(tgetstr("cm", NULL), colmn, row));
-}
+// 	row = cursor->row + cursor->term;
+// 	colmn = cursor->col + (cursor->row ? 0 : cursor->prompt);
+// 	tputs(tgetstr("ce", NULL), 0, ft_putchar_stdin);
+// 	while ((cursor->col + (ABS(cursor->back))) > cursor->ws_col)
+// 	{
+// 		ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
+// 		ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
+// 		tputs(tgetstr("cd", NULL), 0, ft_putchar_stdin);
+// 		ft_putstr(tgoto(tgetstr("cm", NULL), colmn, row));
+// 	}
+// 	ft_putnlst(alst, ft_curs_pos(cursor));
+// 	ft_putstr(tgoto(tgetstr("cm", NULL), colmn, row));
+// }
 
 void			ft_putnlst(t_list **alst, int n)
 {

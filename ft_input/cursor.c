@@ -4,22 +4,22 @@
 # include <sys/ioctl.h>
 # include <signal.h>
 
-void			ft_cursor_term(int len, t_curs *cursor)
-{
-	len += ABS(cursor->back);
-	if (len > (cursor->ws_col - cursor->prompt))
-	{
-		cursor->term++;
-		len -= (cursor->ws_col - cursor->prompt);
-		while (len > cursor->ws_col)
-		{
-			cursor->term++;
-			len -= cursor->ws_col;
-		}
-	}
-	else
-		cursor->term++;
-}
+// void			ft_cursor_term(int len, t_curs *cursor)
+// {
+// 	len += ABS(cursor->back);
+// 	if (len > (cursor->ws_col - cursor->prompt))
+// 	{
+// 		cursor->term++;
+// 		len -= (cursor->ws_col - cursor->prompt);
+// 		while (len > cursor->ws_col)
+// 		{
+// 			cursor->term++;
+// 			len -= cursor->ws_col;
+// 		}
+// 	}
+// 	else
+// 		cursor->term++;
+// }
 
 t_curs			*ft_init_cursor(char *prompt)
 {
@@ -35,7 +35,7 @@ t_curs			*ft_init_cursor(char *prompt)
 	ret->ws_col = win.ws_col;
 	ret->ws_row = win.ws_row;
 	ret->back = 0;
-	ret->term = 1;
+	// ret->term = 1;
 	return (ret);
 }
 
