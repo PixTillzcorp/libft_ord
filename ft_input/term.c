@@ -42,8 +42,7 @@ t_term			*ft_init_term(void)
 	}
 	if (tcgetattr(0, &term_stat) == -1)
 		return (NULL);
-	term_stat.c_lflag &= ~(ICANON);
-	term_stat.c_lflag &= ~(ECHO);
+	term_stat.c_lflag &= ~(ICANON | ECHO | ISIG);
 	term_stat.c_cc[VMIN] = 1;
 	term_stat.c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, &term_stat) == -1)
