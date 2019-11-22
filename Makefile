@@ -34,15 +34,16 @@ EMPTY = $(shell echo "                                                  " | cut
 
 #~~~~~~~~~~~~~~~~COLORS~~~~~~~~~~~~~~
 
-FONT_NOIR = \033[40m
-BLACK = \033[30m
-RED = \033[31m
-GREEN = \033[32m
-YELLOW = \033[33m
-BLUE = \033[34m
-PINK = \033[35m
-CYAN = \033[36m
-GREY = \033[37m
+BLACK = \033[38;5;0m
+RED = \033[38;5;196m
+GREEN = \033[38;5;46m
+YELLOW = \033[38;5;226m
+ORANGE = \033[38;5;202m
+BLUE = \033[38;5;18m
+PINK = \033[38;5;207m
+PURPLE = \033[38;5;57m
+CYAN = \033[38;5;45m
+GREY = \033[38;5;242m
 NORMAL = \033[0m
 
 #Includes
@@ -164,26 +165,22 @@ all: $(NAME)
 #Those ones display colored infos
 
 reset_init:
-	@ echo "$(BLUE)$(FONT_NOIR)Reseting the library\
-	 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$(NORMAL)"
+	@ echo "$(BLUE)~ Reset ~$(NORMAL)"
 
 reset_cmpl:
-	@ echo "$(BLUE)$(FONT_NOIR)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{\
-	 Reset Complete [$(GREEN)\xe2\x9c\x94$(BLUE)]$(NORMAL)"
+	@ echo "$(BLUE)~ Complete [$(GREEN)\xe2\x9c\x94$(BLUE)] ~$(NORMAL)"
 
 cleared:
-	@ echo "$(YELLOW)$(FONT_NOIR)libft : $(RED).o files\
-	 destruction\t\t\t\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
+	@ echo "$(RED)~ .o file destruction [$(GREEN)\xe2\x9c\x94$(RED)] ~$(NORMAL)"
 
 full_clean:
-	@ echo "$(YELLOW)$(FONT_NOIR)libft : $(RED).a file\
-	 destruction\t\t\t\t\t[$(GREEN)\xe2\x9c\x94$(RED)]$(NORMAL)"
+	@ echo "$(RED)~ .a file destruction [$(GREEN)\xe2\x9c\x94$(RED)] ~$(NORMAL)"
 
 #Those rules create .o from .c if the obj is older than the src or doesnt exists
 
 $(OBJDIR)/%.o: %.c
 	@ $(eval DONE = $(shell echo $(DONE) + 1 | bc ))
-	@ echo "\r \b$(PINK)[$(NORMAL)$(BAR)$(EMPTY)$(PINK)] {$(NORMAL)$(PRCENT).$(REST)$(PINK)} $(NORMAL)\t\c"
+	@ echo "\r \b$(PURPLE)[$(NORMAL)$(BAR)$(EMPTY)$(PURPLE)] {$(NORMAL)$(PRCENT).$(REST)$(PURPLE)} $(NORMAL)\t\c"
 	@ mkdir -p $(OBJDIR)
 	@ $(CC) $(CFLAGS) -c $^
 	@ mv ./$(notdir $@) ./$(OBJDIR)/
@@ -191,7 +188,7 @@ $(OBJDIR)/%.o: %.c
 #This one build the lib
 
 $(NAME): $(SRCO)
-	@ echo "$(PINK)$(FONT_NOIR)[$(GREEN)\xe2\x9c\x94$(PINK)]$(NORMAL)"
+	@ echo "$(PURPLE)[$(GREEN)\xe2\x9c\x94$(PURPLE)]$(NORMAL)"
 	@ ar rc $(NAME) $^ && ranlib $(NAME)
 
 # ---------------------------------------
