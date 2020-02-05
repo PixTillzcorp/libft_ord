@@ -165,16 +165,16 @@ all: $(NAME)
 #Those ones display colored infos
 
 reset_init:
-	@ echo "$(BLUE)~ Reset ~$(NORMAL)"
+	@ echo "$(YELLOW)~ Reset $(NAME) ~$(NORMAL)"
 
 reset_cmpl:
-	@ echo "$(BLUE)~ Complete [$(GREEN)\xe2\x9c\x94$(BLUE)] ~$(NORMAL)"
+	@ echo "$(GREEN)~ Reset $(NAME) Complete ~$(NORMAL)"
 
 cleared:
-	@ echo "$(RED)~ .o file destruction [$(GREEN)\xe2\x9c\x94$(RED)] ~$(NORMAL)"
+	@ echo "$(RED)~ Clean $(NAME) ~$(NORMAL)"
 
 full_clean:
-	@ echo "$(RED)~ .a file destruction [$(GREEN)\xe2\x9c\x94$(RED)] ~$(NORMAL)"
+	@ echo "$(RED)~ Full Clean $(NAME) ~$(NORMAL)"
 
 #Those rules create .o from .c if the obj is older than the src or doesnt exists
 
@@ -188,7 +188,7 @@ $(OBJDIR)/%.o: %.c
 #This one build the lib
 
 $(NAME): $(SRCO)
-	@ echo "$(PURPLE)[$(GREEN)\xe2\x9c\x94$(PURPLE)]$(NORMAL)"
+	@ echo "$(PURPLE)[$(GREEN)\xe2\x9c\x94$(PURPLE)] $(NAME)$(NORMAL)"
 	@ ar rc $(NAME) $^ && ranlib $(NAME)
 
 # ---------------------------------------
@@ -205,7 +205,8 @@ clean: cleared
 
 #Cleaning obj files and the lib
 
-fclean: full_clean clean
+fclean: full_clean
+	@ rm -f $(SRCO)
 	@ rm -f $(NAME)
 
 #Reset the compil : "Cleaning to rebuild everything better"
